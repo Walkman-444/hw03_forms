@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
-{% block title %} Записи сообщества: {{ group.title }}
+{% block title %} Записи сообщества: {{ group }}
 {% endblock %}
 {% block content %}
   <div class="container py-5">
-    <h1>{{ group.title }}</h1>
+    <h1>{{ group }}</h1>
     <p>{{ group.description }}</p>
 {% for post in page_obj %} 
   <li>Автор: {{ post.author.get_full_name }} <a href="{% url 'posts:profile' post.author.username %}">все посты пользователя</a>
@@ -14,5 +14,5 @@
 <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
 {% if not forloop.last %}<hr>{% endif %}
 {% endfor %}
-{% include 'posts/includes/paginator.html' %}
+{% include 'includes/paginator.html' %}
 {% endblock %} 

@@ -121,7 +121,6 @@ USE_TZ = True
 
 LOGIN_URL = 'users:login'
 LOGIN_REDIRECT_URL = 'posts:index'
-# LOGOUT_REDIRECT_URL = 'posts:index'
 
 
 #  подключаем движок filebased.EmailBackend

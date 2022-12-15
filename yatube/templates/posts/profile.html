@@ -20,7 +20,7 @@
         <li>
           Дата публикации: {{post.pub_date|date:"d E Y"}}
         </li>
-        <p>{{ post.text }}</p>
+        <p>{{ post }}</p>
         <a href="{% url 'posts:post_detail' post.id %}">подробная информация </a>
       </article>
       {% if post.group %}
@@ -28,6 +28,6 @@
       {% endif %}
       {% if not forloop.last %}<hr>{% endif %}
     {% endfor %}
-    {% include 'posts/includes/paginator.html' %}
+    {% include 'includes/paginator.html' %}
   </div>
 {% endblock %}
