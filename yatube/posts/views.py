@@ -8,15 +8,15 @@ from .forms import PostForm
 POST_COUNT = 10
 
 
-def paginator(request, post_list):
-    paginator = Paginator(post_list, POST_COUNT)
+def paginate_page(request, posts):
+    paginator = Paginator(posts, POST_COUNT)
     page_number = request.GET.get('page')
     return paginator.get_page(page_number)
 
 
 def index(request):
-    post_list = Post.objects.select_related('author', 'group')
-    page_obj = paginator(request=request, post_list=post_list)
+    posts = Post.objects.select_related('author', 'group')
+    page_obj = paginate_page(request=request, posts=posts)
     context = {
         'page_obj': page_obj,
     }
@@ -25,8 +25,8 @@ def index(request):
 
 def group_posts(request, slug):
     group = get_object_or_404(Group, slug=slug)
-    post_list = group.posts.select_related('author', 'group')
-    page_obj = paginator(request=request, post_list=post_list)
+    posts = group.posts.select_related('author', 'group')
+    page_obj = paginate_page(request=request, posts=posts)
     context = {
         'group': group,
         'page_obj': page_obj,
@@ -38,9 +38,7 @@ def group_posts(request, slug):
 def profile(request, username):
     author = get_object_or_404(User, username=username)
     posts = author.posts.select_related('author', 'group')
-    paginator = Paginator(posts, POST_COUNT)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    page_obj = paginate_page(request=request, posts=posts)
     context = {
         'author': author,
         'page_obj': page_obj,

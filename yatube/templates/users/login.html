@@ -12,10 +12,7 @@
           {% include 'includes/chek.html' %}
 
           <form method="post"
-            {% if action_url %}
-              action="{% url 'users:login' %}"
-            {% endif %}
-          >
+              action="{% url 'users:login' %}">
           {% csrf_token %}
 
           {% for field in form %}
